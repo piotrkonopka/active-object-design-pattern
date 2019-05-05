@@ -71,7 +71,7 @@ class Account {
             f()
         }, 0)
         setTimeout(() => {
-            RunEach(array)
+            this.runEach(array)
         }, 0)
     }
     Balance() {
