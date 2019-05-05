@@ -1,1 +1,1 @@
-"# active-object-design-pattern" 
+# active-object-design-pattern
