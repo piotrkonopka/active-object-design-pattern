@@ -51,10 +51,10 @@ class Account {
         this.wg = new WaitGroup()
         this.live = setInterval(() => {
             setTimeout(() => {
-                this.runEach(this.pri)
+                this.runEach(this.pub)
             }, 0)
             setTimeout(() => {
-                this.runEach(this.pub)
+                this.runEach(this.pri)
             }, 0)
         }, 1)
 
@@ -67,12 +67,8 @@ class Account {
             return
         }
         const f = array.shift()
-        setTimeout(() => {
-            f()
-        }, 0)
-        setTimeout(() => {
-            this.runEach(array)
-        }, 0)
+        f()
+        this.runEach(array)
     }
     Balance() {
         this.wg.Add()
