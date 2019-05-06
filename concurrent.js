@@ -52,23 +52,27 @@ class Account {
         this.live = setInterval(() => {
             setTimeout(() => {
                 this.runEach(this.pub)
-            }, 0)
+            })
             setTimeout(() => {
                 this.runEach(this.pri)
-            }, 0)
-        }, 1)
+            })
+        })
 
     }
     destructor() {
         clearInterval(this.live)
     }
-    runEach(array) {
-        if (array.length === 0) {
+    async runEach(chan) {
+        if (chan.length === 0) {
             return
         }
-        const f = array.shift()
-        f()
-        this.runEach(array)
+        const f = await chan.shift()
+        setTimeout(()=>{
+            f()
+        })
+        setTimeout(()=>{
+            this.runEach(chan)
+        })
     }
     Balance() {
         this.wg.Add()
@@ -99,14 +103,14 @@ class Account {
                 if (amt < 0) {
                     setTimeout(() => {
                         to.TransferTo(this, -amt)
-                    }, 0)
+                    })
                 } else if (amt > this.bal) {
                     ErrCallback(`Insuff. funds $${this.bal / Dollar} for w/d $${amt / Dollar}`)
                 } else {
                     this.bal -= amt
                     setTimeout(() => {
                         to.Add(amt)
-                    }, 0)
+                    })
                 }
                 this.wg.Done()
             }
